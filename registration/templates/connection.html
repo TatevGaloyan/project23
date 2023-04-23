@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Connection{% endblock %}
+
+{% block connection_active %}active{% endblock %}
+
+{% block content %}
+
+<div id="connection" class="callconnect">
+    <div class="toptext">
+      <div class="icon-heading">
+        <i class="fas fa-phone flip-horizontal"></i>
+        <h1>Calling</h1>
+      </div>
+    </div>
+    <form id="call-form" method="POST" action="{% url 'create_call' %}">
+      {% csrf_token %}
+      <div class="IPPBX">
+          <label for="pbx">IP PBX</label>
+          <input type="text" id="pbx" name="pbxinput">
+          <button type="submit" id="test-button">Test Connection</button>
+      </div>
+  </form>
+  <div class="CreateCall">
+      <br><p>Send calls to the specified phone numbers.</p><br>
+      <button type="button" name="call" class="callButton">Call</button>
+      <br><br><hr>
+        <br><br><br>
+        <table class="calls-table">
+          <tr>
+              <th>Total calls</th>
+              <th>Answered</th>
+              <th>Didn't Answer</th>
+              <th>Closed calls</th>
+          </tr>
+          <tr>
+              <td>{{ total_calls }}</td>
+              <td>{{ answered_calls }}</td>
+              <td>{{ didnt_answer_calls }}</td>
+              <td>{{ closed_calls }}</td>
+          </tr>
+      </table>
+        <br><br>
+          <button class="callanalytics" id="call-analytics-button">Call Analytics</button>
+        <div class="transparent-background" id="call-analytics-container">
+          <div class="show-table">
+            <h2>Call Analytics</h2>
+            <br>
+          <div class="table-analytics">
+            <table class= "call-analytics-table" id="call-analytics-table">
+              <thead class="contacts_info">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for a in call_analytics %}
+                <tr>
+                  <td>{{a.name}}</td>
+                  <td>{{a.phones}}</td>
+                  <td>{{a.date|date:"Y/m/d"}}</td>
+                  <td>{{a.time|date:"H:i"}}</td>
+                  <td>{{a.status}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <br>
+          </div>
+          <button class="CloseButton" onclick="closeTableInfo()">Close</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(function() {
+  $('#test-button').click(function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    var pbxInput = $('#pbx').val();
+    if (!pbxInput) {
+      alert('Please enter a value for IP PBX');
+      return;
+    }
+    fetch('/test-connection?pbx=' + encodeURIComponent(pbxInput))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Connection failed');
+        }
+        alert('Connection failed.');
+      })
+      .catch(error => {
+        alert('Connection successful!');
+      });
+  });
+
+  $('.callButton').click(function(event) {
+    event.preventDefault();
+    $('#call-analytics-container').removeClass('show');
+    $('form').attr('action', '{% url "create_call" %}');
+    $('form').submit();
+  });
+
+  $('.callanalytics').click(function() {
+    $('#call-analytics-container').addClass('show');
+  });
+
+  $('.CloseButton').click(function() {
+    $('#call-analytics-container').removeClass('show');
+  });
+});
+    </script>
+{% endblock %}

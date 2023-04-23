@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signupstyle.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form method="post">
+        <h3>Signup</h3>
+
+        {% csrf_token %} 
+        <label for="username"><i class="fas fa-user"></i> Username</label>
+        <input type="text" placeholder="Username" name="username" id="username">
+
+        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+        <input type="email" placeholder="Email" name="email" id="email">
+
+        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+        <input type="phone" placeholder="Phone" name="phone" id="phone">
+
+        <label for="password"><i class="fas fa-lock"></i> Password</label>
+        <input type="password" placeholder="Password" id="password" name="password">
+        <br>
+        <button type="submit">Signup</button>
+        <br><br>
+        <p>Already have an account? <a href="{% url 'login' %}">Login now</a></p>
+    </form>
+</body>
+</html>

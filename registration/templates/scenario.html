@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Scenario{% endblock %}
+
+{% block scenario_active %}active{% endblock %}
+
+{% block content %}
+
+<div id="scenario" class="callscenario">
+    <div class="toptext">
+      <div class="icon-heading">
+        <i class="fas fa-paper-plane"></i>
+        <h1>Call Scenario</h1>
+      </div>
+    </div>
+    <div class="ScenarioWhite">
+    <div class="box2">
+      <p>Scenario</p>
+      <table class="input-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Action input</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Call to</td>
+          <td>
+            <select name="callto">
+              <option value="names">Names</option>
+              <option value="phones">Phones</option>
+              <option value="date">Date</option>
+              <option value="time">Time</option>
+              <option selected disabled hidden>Phones</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Play message</td>
+          <td>
+            <input type="file" id="play-message" name="audio-file" class="play-message" accept="audio/*">
+          </td>
+        </tr>
+        <tr>
+          <td>Play menu</td>
+          <td>
+            <input type="file" id="play-menu" name="audio-file" class="play-menu" accept="audio/*">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <br>
+    <div class="box1">
+      <p>Menu</p>
+      <table class="menu-table">
+      <thead>
+        <tr>
+          <th>User input</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <div class="user-input1">
+            <select>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option selected disabled hidden>1</option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <div class="status1">
+            <select>
+              <option value="1">Confirmed</option>
+              <option value="2">Canceled</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="user-input2">
+            <select>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option selected disabled hidden>2</option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <div class="status2">
+            <select>
+              <option value="1">Confirmed</option>
+              <option value="2">Canceled</option>
+              <option selected disabled hidden>Canceled</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+
+{% endblock %}

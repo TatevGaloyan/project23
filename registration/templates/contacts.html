@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block contacts_active %}active{% endblock %}
+
+{% block content %}
+<div id="contacts" class="contactpage">
+  <div class="toptext">
+    <div class="icon-heading">
+        <i class="fas fa-address-book"></i>
+        <h1>Calling List</h1>
+      </div>
+  </div> 
+  <div class="sel">
+    <form method="POST" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="selectfile" class="select-file">Please select your contacts file.</label>
+      <input type="file" id="file-input" name="file">
+      <button type="submit" class="uploadButton">Upload</button>
+    </form> 
+  </div>
+    {% if contacts %}
+    <div class="table-wrapper">
+      <table class="contacts_data">
+        <thead class="contacts_info">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in contacts %}
+          <tr>
+            <td>{{t.name}}</td>
+            <td>{{t.phones}}</td>
+            <td>{{t.date|date:"Y/m/d"}}</td>
+            <td>{{t.time|date:"H:i"}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
